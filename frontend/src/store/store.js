@@ -9,18 +9,15 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     students: [],
-    totalStudents: 0,
     semester: 0,
     ageMin: 0,
     ageMax: 0,
-    city: 'Todos'
+    city: 'Todos',
+    studentsTemp: []
   },
   mutations: {
     updateStudents (state, students) {
       state.students = students
-    },
-    updateTotalStudents (state, totalStudents) {
-      state.totalStudents = totalStudents
     },
     updateSemester (state, semester) {
       state.semester = semester
@@ -33,11 +30,14 @@ export const store = new Vuex.Store({
     },
     updateCity (state, city) {
       state.city = city
+    },
+    updateStudentsTemp (state, studentsTemp) {
+      state.studentsTemp = studentsTemp
     }
   },
   getters: {
     getTotalStudents: (state) => {
-      return state.totalStudents
+      return state.studentsTemp.length > 0 ? state.studentsTemp.length : state.students.length
     },
     onChangeData: (state) => {
       var career = state.c.career === '0' ? 0 : state.c.career
@@ -45,114 +45,76 @@ export const store = new Vuex.Store({
       var ageMin = parseInt(state.ageMin)
       var ageMax = parseInt(state.ageMax)
       var city = state.city
-      var students = []
+
       if ((career > 0) && (semester === 0) && (ageMin === 0) && (ageMax === 0) && (city === 'Todos')) {
-        students = state.students.filter((a) => a.career.id === career)
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => a.career.id === career)
       } else if ((career > 0) && (semester === 0) && (ageMin === 0) && (ageMax === 0) && (city !== 'Todos')) {
-        students = state.students.filter((a) => (a.career.id === career) && (a.city === city))
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.city === city))
       } else if ((career > 0) && (semester === 0) && (ageMin > 0) && (ageMax > 0) && (city === 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.age >= ageMin && a.age < ageMax))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.age >= ageMin && a.age < ageMax))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.age === ageMin))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.age === ageMin))
         }
       } else if ((career > 0) && (semester === 0) && (ageMin > 0) && (ageMax > 0) && (city !== 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.age === ageMin) && (a.city === city))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.age === ageMin) && (a.city === city))
         }
       } else if ((career > 0) && (semester > 0) && (ageMin === 0) && (ageMax === 0) && (city === 'Todos')) {
-        students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester))
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester))
       } else if ((career > 0) && (semester > 0) && (ageMin === 0) && (ageMax === 0) && (city !== 'Todos')) {
-        students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.city === city))
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.city === city))
       } else if ((career > 0) && (semester > 0) && (ageMin > 0) && (ageMax > 0) && (city === 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age >= ageMin && a.age < ageMax))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age >= ageMin && a.age < ageMax))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age === ageMin))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age === ageMin))
         }
       } else if ((career > 0) && (semester > 0) && (ageMin > 0) && (ageMax > 0) && (city !== 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age === ageMin) && (a.city === city))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.career.id === career) && (a.semester === semester) && (a.age === ageMin) && (a.city === city))
         }
       } else if ((career === 0) && (semester === 0) && (ageMin === 0) && (ageMax === 0) && (city === 'Todos')) {
         return state.students
       } else if ((career === 0) && (semester === 0) && (ageMin === 0) && (ageMax === 0) && (city !== 'Todos')) {
-        students = state.students.filter((a) => a.city === city)
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => a.city === city)
       } else if ((career === 0) && (semester === 0) && (ageMin > 0) && (ageMax > 0) && (city === 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.age >= ageMin && a.age < ageMax))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.age >= ageMin && a.age < ageMax))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.age === ageMin))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.age === ageMin))
         } else {
           state.totalStudents = 0
         }
       } else if ((career === 0) && (semester === 0) && (ageMin > 0) && (ageMax > 0) && (city !== 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.age >= ageMin && a.age < ageMax) && (a.city === city))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.age >= ageMin && a.age < ageMax) && (a.city === city))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.age === ageMin) && (a.city === city))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.age === ageMin) && (a.city === city))
         }
       } else if ((career === 0) && (semester > 0) && (ageMin === 0) && (ageMax === 0) && (city === 'Todos')) {
-        students = state.students.filter((a) => (a.semester === semester))
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => (a.semester === semester))
       } else if ((career === 0) && (semester > 0) && (ageMin === 0) && (ageMax === 0) && (city !== 'Todos')) {
-        students = state.students.filter((a) => (a.semester === semester) && (a.city === city))
-        state.totalStudents = students.length
+        state.studentsTemp = state.students.filter((a) => (a.semester === semester) && (a.city === city))
       } else if ((career === 0) && (semester > 0) && (ageMin > 0) && (ageMax > 0) && (city === 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.semester === semester) && (a.age >= ageMin && a.age < ageMax))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.semester === semester) && (a.age >= ageMin && a.age < ageMax))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.semester === semester) && (a.age === ageMin))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.semester === semester) && (a.age === ageMin))
         }
       } else if ((career === 0) && (semester > 0) && (ageMin > 0) && (ageMax > 0) && (city !== 'Todos')) {
         if (ageMin < ageMax) {
-          students = state.students.filter((a) => (a.semester === semester) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
-          state.totalStudents = students.length
+          state.studentsTemp = state.students.filter((a) => (a.semester === semester) && (a.age >= ageMin && a.age < ageMax) && (a.city === city))
         } else if (ageMin === ageMax) {
-          students = state.students.filter((a) => (a.semester === semester) && (a.age === ageMin) && (a.city === city))
-          state.totalStudents = students.length
-        } else {
-          state.totalStudents = 0
+          state.studentsTemp = state.students.filter((a) => (a.semester === semester) && (a.age === ageMin) && (a.city === city))
         }
-      } else {
-        state.totalStudents = 0
       }
-      return students
+
+      return state.studentsTemp
     }
   },
   actions: {
