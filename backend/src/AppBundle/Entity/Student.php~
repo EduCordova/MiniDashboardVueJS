@@ -1,0 +1,77 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Student
+ *
+ * @ORM\Table(name="students")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AtudentRepository")
+ */
+class Student
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="student_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=36)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_lastname", type="string", length=45)
+     */
+    private $firstLastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="second_lastname", type="string", length=45)
+     */
+    private $secondLastName;
+
+    /** @ORM\ManyToOne(targetEntity="AppBundle\Entity\Career")
+     *  @ORM\JoinColumn(name="career", referencedColumnName="career_id") 
+     */ 
+    private $career;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="age", type="integer")
+     */
+    private $age;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="semester", type="integer")
+     */
+    private $semester;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=45)
+     */
+    private $state;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=45)
+     */
+    private $city;
+}

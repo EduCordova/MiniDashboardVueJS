@@ -1,0 +1,10 @@
+AppBundle\Entity\Student: 
+  student{1..1000}:
+    name: <firstName()> 
+    firstLastName: <lastName()> 
+    secondLastName: <lastName()> 
+    career: <randomElement($array = array (@career1, @career2, @career3, @career4, @career5, @career6, @career7, @career8, @career9, @career10))>
+    age: <numberBetween($min = 17, $max = 30)>
+    semester: <numberBetween($min = 1, $max = 9)>
+    state: "Baja California"
+    city: <randomElement($array = array ("Mexicali","Tijuana","Ensenada", "Tecate", "Rosarito"))>

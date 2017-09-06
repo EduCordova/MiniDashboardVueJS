@@ -1,0 +1,30 @@
+AppBundle\Entity\Career: 
+  career1: 
+    name: 'Ingeniería Industrial' 
+ 
+  career2: 
+    name: 'Ingeniería en Logística' 
+ 
+  career3: 
+    name: 'Ingeniería Mecatrónica' 
+ 
+  career4: 
+    name: 'Ingeniería Mecánica' 
+ 
+  career5: 
+    name: 'Ingeniería Sistemas Computacionales' 
+ 
+  career6: 
+    name: 'Ingeniería en Gestión Empresarial' 
+ 
+  career7: 
+    name: 'Ingeniería en Energías Renovables' 
+ 
+  career8: 
+    name: 'Ingeniería Electrónica' 
+ 
+  career9: 
+    name: 'Ingeniería Química' 
+ 
+  career10: 
+    name: 'Ingeniería Eléctrica'

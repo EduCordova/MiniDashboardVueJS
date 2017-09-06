@@ -1,0 +1,30 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Career
+ *
+ * @ORM\Table(name="careers")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CareerRepository")
+ */
+class Career
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="career_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80)
+     */
+    private $name;
+}
